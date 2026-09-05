@@ -1,0 +1,4 @@
+/lshwtui
+/dist/
+*.test
+.DS_Store

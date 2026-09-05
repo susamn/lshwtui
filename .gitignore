@@ -5,3 +5,6 @@
 
 # local hardware captures
 lshw-*.json
+
+# goreleaser output
+/dist/

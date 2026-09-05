@@ -1,0 +1,78 @@
+# GoReleaser builds the release binaries and updates the Homebrew tap.
+# Run `goreleaser release --snapshot --clean` to exercise this locally.
+version: 2
+
+project_name: lshwtui
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: lshwtui
+    main: .
+    binary: lshwtui
+    env:
+      - CGO_ENABLED=0
+    # lshw is a Linux tool; there is nothing for this binary to talk to
+    # elsewhere, so no other platform is built.
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w -X main.version={{ .Version }}
+
+archives:
+  - id: lshwtui
+    ids:
+      - lshwtui
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    files:
+      - README.md
+      - LICENSE
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"
+      - "^ci:"
+      - "^build:"
+      - "^merge:"
+
+homebrew_casks:
+  - name: lshwtui
+    repository:
+      owner: susamn
+      name: homebrew-tap
+      branch: main
+      token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
+    directory: Casks
+    homepage: "https://github.com/susamn/lshwtui"
+    description: "Vim-navigable terminal UI for lshw"
+    commit_msg_template: "lshwtui {{ .Tag }}"
+    caveats: |
+      lshwtui needs the lshw binary, which Homebrew does not package:
+
+        Arch     sudo pacman -S lshw
+        Debian   sudo apt install lshw
+        Fedora   sudo dnf install lshw
+
+      lshw only reports the complete hardware tree as root. Run lshwtui
+      normally and press R to re-run it through sudo, doas or pkexec.
+
+      Device icons need a Nerd Font. Without one, run: lshwtui --no-glyphs
+
+release:
+  github:
+    owner: susamn
+    name: lshwtui

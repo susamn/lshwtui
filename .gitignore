@@ -2,3 +2,6 @@
 /dist/
 *.test
 .DS_Store
+
+# local hardware captures
+lshw-*.json

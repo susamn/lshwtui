@@ -38,7 +38,7 @@ looking for instead of scrolling through hundreds of lines.
 
 ## Requirements
 
-- Go 1.27+ (per `go.mod`) to build from source
+- Go 1.24+ to build from source
 - The `lshw` binary on `PATH` (e.g. `pacman -S lshw`, `apt install lshw`)
 - A Nerd Font for the tree glyphs — pass `--no-glyphs` to fall back to plain
   ASCII on terminals without one
@@ -54,8 +54,11 @@ Build from source:
 ```sh
 git clone <this-repo>
 cd lshwtui
-env -u GOROOT go build -o lshwtui .
+make build          # ./lshwtui
+make install        # into ~/.local/bin (override with PREFIX=)
 ```
+
+`make help` lists every target; `make check` runs formatting, vet and tests.
 
 ## Usage
 
@@ -92,13 +95,14 @@ lshwtui --version          # print version and exit
 |---|---|
 | `/` | Start incremental search |
 | `n` / `N` | Next / previous match |
-| `esc` | Clear search |
+| `esc` | Leave raw view, or clear the search |
 
 ### View
 
 | Key | Action |
 |---|---|
 | `x` | Toggle raw-JSON view of the selected subtree |
+| `E` / `C` | Expand all / collapse all |
 | `?` | Toggle help overlay |
 
 ### Data
@@ -117,7 +121,7 @@ lshwtui --version          # print version and exit
 |---|---|
 | `q` | Quit |
 
-Keybindings and CLI flags above are the intended v1 surface; check the code
+Keybindings and CLI flags above are implemented; check the code
 for what's actually wired up until the first tagged release.
 
 ## Why not just run lshw?

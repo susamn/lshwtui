@@ -38,6 +38,7 @@ looking for instead of scrolling through hundreds of lines.
 
 ## Requirements
 
+- Linux — `lshw` is a Linux tool, so `lshwtui` is built for Linux only
 - Go 1.24+ to build from source
 - The `lshw` binary on `PATH` (e.g. `pacman -S lshw`, `apt install lshw`)
 - A Nerd Font for the tree glyphs — pass `--no-glyphs` to fall back to plain
@@ -45,14 +46,23 @@ looking for instead of scrolling through hundreds of lines.
 
 ## Install
 
+Homebrew (Linux):
+
 ```sh
-go install github.com/<owner>/lshwtui@latest
+brew tap susamn/tap
+brew install --cask lshwtui
+```
+
+Go:
+
+```sh
+go install github.com/susamn/lshwtui@latest
 ```
 
 Build from source:
 
 ```sh
-git clone <this-repo>
+git clone https://github.com/susamn/lshwtui
 cd lshwtui
 make build          # ./lshwtui
 make install        # into ~/.local/bin (override with PREFIX=)

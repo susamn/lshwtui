@@ -1,36 +1,40 @@
 # Progress
 
-Status: pre-alpha — data model and capture layer exist; no UI yet.
+Status: v1 feature-complete — builds, tests pass, all planned keybindings wired.
+Not yet exercised in a real terminal session by a human.
 
 ## Done
 
 - Repo initialized with MIT license and `.gitignore`
-- Go module set up (`lshwtui`)
+- Go module set up (`lshwtui`), `go` directive relaxed to 1.24
 - `lshw.Node` model with schema-tolerant field accessors (`internal/lshw/node.go`)
-- `lshw.Parse` — decodes `lshw -json` output into a parent-linked tree,
-  handling both single-object and array top-level shapes (`internal/lshw/parse.go`)
+- `lshw.Parse` — decodes `lshw -json` into a parent-linked tree, handling both
+  single-object and array top-level shapes (`internal/lshw/parse.go`)
 - Capture/snapshot sources: live capture, root re-run via sudo/doas/pkexec,
   snapshot save/load (`internal/lshw/source.go`)
+- `internal/theme` — per-class Nerd Font glyphs with ASCII fallbacks, adaptive
+  colour palette, pane and status styles
+- `internal/ui/tree.go` — expand/collapse state, flattened rows, indent guides
+- `internal/ui/search.go` — incremental search across every field including
+  `configuration` and `capabilities`, matches in tree order
+- `internal/ui/detail.go` — detail lines as pure data, byte/Hz humanisation
+- `internal/ui/clipboard.go` — wl-copy/xclip/xsel/pbcopy with an OSC 52 fallback
+- `internal/ui/model.go`, `update.go`, `view.go`, `help.go` — the Bubble Tea app
+- `main.go` — CLI with `-f`/`--file`, `--no-glyphs`, `--version`
+- `Makefile` — build, run, test, vet, fmt, check, install, snapshot, clean
+- Tests: `internal/lshw` (parsing, accessors, snapshot round-trip) and
+  `internal/ui` (model driven by a redacted real capture in `testdata/`)
 
 ## In progress
 
-- `internal/theme` — glyphs and lipgloss styles
-- `internal/ui` — Bubble Tea model (tree pane, detail pane, status bar)
-- `main.go` — CLI entrypoint and flag parsing
+- Nothing. Awaiting a real terminal run and feedback.
 
 ## Planned
 
-- Tree pane: collapsible system > bus > device rendering with indent guides
-- Detail pane: field list plus `configuration` / `capabilities` sections
-- Navigation keys: `j`/`k`, `g`/`G`, `ctrl+d`/`ctrl+u`, `h`/`l`, `enter`/`space`, `tab`
-- Incremental search: `/`, `n`, `N`, `esc`
-- Raw-JSON view toggle (`x`)
-- Yank to clipboard: node detail (`y`) and raw JSON (`Y`)
-- Reload (`r`) and privileged reload (`R`) wired into the UI
-- Snapshot save from the UI (`s`)
-- Help overlay (`?`)
-- CLI flags: `-f`/`--file`, `--no-glyphs`, `--version`
-- `--no-glyphs` fallback rendering in `internal/theme`
+- Verify glyph rendering and colours in a live terminal with a Nerd Font
+- A remote has not been created yet; nothing is pushed
+- Possible follow-ups, explicitly out of v1 scope: diffing two snapshots,
+  filtering the tree to matches only, exporting a device as YAML/text report
 
 ## Decisions
 

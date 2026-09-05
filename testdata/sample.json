@@ -1,0 +1,1235 @@
+{
+  "id": "testhost",
+  "class": "system",
+  "claimed": true,
+  "description": "Computer",
+  "width": 64,
+  "capabilities": {
+    "smp": "Symmetric Multi-Processing",
+    "vsyscall32": "32-bit processes"
+  },
+  "children": [
+    {
+      "id": "core",
+      "class": "bus",
+      "claimed": true,
+      "description": "Motherboard",
+      "physid": "0",
+      "children": [
+        {
+          "id": "memory",
+          "class": "memory",
+          "claimed": true,
+          "description": "System memory",
+          "physid": "0",
+          "units": "bytes",
+          "size": 30064771072
+        },
+        {
+          "id": "cpu",
+          "class": "processor",
+          "claimed": true,
+          "product": "AMD Ryzen 9 6900HS Creator Edition",
+          "vendor": "Advanced Micro Devices [AMD]",
+          "physid": "1",
+          "businfo": "cpu@0",
+          "version": "25.68.1",
+          "units": "Hz",
+          "size": 4242483000,
+          "capacity": 4936631000,
+          "width": 64,
+          "configuration": {
+            "microcode": "171983112"
+          },
+          "capabilities": {
+            "fpu": "mathematical co-processor",
+            "fpu_exception": "FPU exceptions reporting",
+            "wp": true,
+            "vme": "virtual mode extensions",
+            "de": "debugging extensions",
+            "pse": "page size extensions",
+            "tsc": "time stamp counter",
+            "msr": "model-specific registers",
+            "pae": "4GB+ memory addressing (Physical Address Extension)",
+            "mce": "machine check exceptions",
+            "cx8": "compare and exchange 8-byte",
+            "apic": "on-chip advanced programmable interrupt controller (APIC)",
+            "sep": "fast system calls",
+            "mtrr": "memory type range registers",
+            "pge": "page global enable",
+            "mca": "machine check architecture",
+            "cmov": "conditional move instruction",
+            "pat": "page attribute table",
+            "pse36": "36-bit page size extensions",
+            "clflush": true,
+            "mmx": "multimedia extensions (MMX)",
+            "fxsr": "fast floating point save/restore",
+            "sse": "streaming SIMD extensions (SSE)",
+            "sse2": "streaming SIMD extensions (SSE2)",
+            "ht": "HyperThreading",
+            "syscall": "fast system calls",
+            "nx": "no-execute bit (NX)",
+            "mmxext": "multimedia extensions (MMXExt)",
+            "fxsr_opt": true,
+            "pdpe1gb": true,
+            "rdtscp": true,
+            "x86-64": "64bits extensions (x86-64)",
+            "constant_tsc": true,
+            "rep_good": true,
+            "nopl": true,
+            "xtopology": true,
+            "nonstop_tsc": true,
+            "cpuid": true,
+            "extd_apicid": true,
+            "aperfmperf": true,
+            "rapl": true,
+            "pni": true,
+            "pclmulqdq": true,
+            "monitor": true,
+            "ssse3": true,
+            "fma": true,
+            "cx16": true,
+            "sse4_1": true,
+            "sse4_2": true,
+            "x2apic": true,
+            "movbe": true,
+            "popcnt": true,
+            "aes": true,
+            "xsave": true,
+            "avx": true,
+            "f16c": true,
+            "rdrand": true,
+            "lahf_lm": true,
+            "cmp_legacy": true,
+            "svm": true,
+            "extapic": true,
+            "cr8_legacy": true,
+            "abm": true,
+            "sse4a": true,
+            "misalignsse": true,
+            "3dnowprefetch": true,
+            "osvw": true,
+            "ibs": true,
+            "skinit": true,
+            "wdt": true,
+            "tce": true,
+            "topoext": true,
+            "perfctr_core": true,
+            "perfctr_nb": true,
+            "bpext": true,
+            "perfctr_llc": true,
+            "mwaitx": true,
+            "cpb": true,
+            "cat_l3": true,
+            "cdp_l3": true,
+            "hw_pstate": true,
+            "ssbd": true,
+            "mba": true,
+            "ibrs": true,
+            "ibpb": true,
+            "stibp": true,
+            "vmmcall": true,
+            "fsgsbase": true,
+            "bmi1": true,
+            "avx2": true,
+            "smep": true,
+            "bmi2": true,
+            "erms": true,
+            "invpcid": true,
+            "cqm": true,
+            "rdt_a": true,
+            "rdseed": true,
+            "adx": true,
+            "smap": true,
+            "clflushopt": true,
+            "clwb": true,
+            "sha_ni": true,
+            "xsaveopt": true,
+            "xsavec": true,
+            "xgetbv1": true,
+            "xsaves": true,
+            "cqm_llc": true,
+            "cqm_occup_llc": true,
+            "cqm_mbm_total": true,
+            "cqm_mbm_local": true,
+            "user_shstk": true,
+            "clzero": true,
+            "irperf": true,
+            "xsaveerptr": true,
+            "rdpru": true,
+            "wbnoinvd": true,
+            "cppc": true,
+            "arat": true,
+            "npt": true,
+            "lbrv": true,
+            "svm_lock": true,
+            "nrip_save": true,
+            "tsc_scale": true,
+            "vmcb_clean": true,
+            "flushbyasid": true,
+            "decodeassists": true,
+            "pausefilter": true,
+            "pfthreshold": true,
+            "avic": true,
+            "v_vmsave_vmload": true,
+            "vgif": true,
+            "v_spec_ctrl": true,
+            "umip": true,
+            "pku": true,
+            "ospke": true,
+            "vaes": true,
+            "vpclmulqdq": true,
+            "rdpid": true,
+            "overflow_recov": true,
+            "succor": true,
+            "smca": true,
+            "fsrm": true,
+            "debug_swap": true,
+            "cpufreq": "CPU Frequency scaling"
+          }
+        },
+        {
+          "id": "pci:0",
+          "class": "bridge",
+          "claimed": true,
+          "handle": "PCIBUS:0000:00",
+          "description": "Host bridge",
+          "product": "Family 17h-19h PCIe Root Complex",
+          "vendor": "Advanced Micro Devices, Inc. [AMD]",
+          "physid": "100",
+          "businfo": "pci@0000:00:00.0",
+          "version": "01",
+          "width": 32,
+          "clock": 33000000,
+          "children": [
+            {
+              "id": "generic",
+              "class": "generic",
+              "handle": "PCI:0000:00:00.2",
+              "description": "IOMMU",
+              "product": "Family 17h-19h IOMMU",
+              "vendor": "Advanced Micro Devices, Inc. [AMD]",
+              "physid": "0.2",
+              "businfo": "pci@0000:00:00.2",
+              "version": "00",
+              "width": 32,
+              "clock": 33000000,
+              "configuration": {
+                "latency": "0"
+              },
+              "capabilities": {
+                "cap_list": "PCI capabilities listing"
+              }
+            },
+            {
+              "id": "pci:0",
+              "class": "bridge",
+              "claimed": true,
+              "handle": "PCIBUS:0000:01",
+              "description": "PCI bridge",
+              "product": "Family 17h-19h PCIe GPP Bridge",
+              "vendor": "Advanced Micro Devices, Inc. [AMD]",
+              "physid": "1.1",
+              "businfo": "pci@0000:00:01.1",
+              "version": "00",
+              "width": 32,
+              "clock": 33000000,
+              "configuration": {
+                "driver": "pcieport"
+              },
+              "capabilities": {
+                "pci": true,
+                "normal_decode": true,
+                "bus_master": "bus mastering",
+                "cap_list": "PCI capabilities listing"
+              },
+              "children": [
+                {
+                  "id": "display",
+                  "class": "display",
+                  "claimed": true,
+                  "handle": "PCI:0000:01:00.0",
+                  "description": "VGA compatible controller",
+                  "product": "GA107BM [GeForce RTX 3050 Mobile]",
+                  "vendor": "NVIDIA Corporation",
+                  "physid": "0",
+                  "businfo": "pci@0000:01:00.0",
+                  "version": "a1",
+                  "width": 64,
+                  "clock": 33000000,
+                  "configuration": {
+                    "driver": "nvidia",
+                    "latency": "0"
+                  },
+                  "capabilities": {
+                    "vga_controller": true,
+                    "bus_master": "bus mastering",
+                    "cap_list": "PCI capabilities listing",
+                    "rom": "extension ROM"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "pci:1",
+              "class": "bridge",
+              "claimed": true,
+              "handle": "PCIBUS:0000:02",
+              "description": "PCI bridge",
+              "product": "Family 17h-19h PCIe GPP Bridge",
+              "vendor": "Advanced Micro Devices, Inc. [AMD]",
+              "physid": "2.3",
+              "businfo": "pci@0000:00:02.3",
+              "version": "00",
+              "width": 32,
+              "clock": 33000000,
+              "configuration": {
+                "driver": "pcieport"
+              },
+              "capabilities": {
+                "pci": true,
+                "normal_decode": true,
+                "bus_master": "bus mastering",
+                "cap_list": "PCI capabilities listing"
+              },
+              "children": [
+                {
+                  "id": "network",
+                  "class": "network",
+                  "claimed": true,
+                  "handle": "PCI:0000:02:00.0",
+                  "description": "Wireless interface",
+                  "product": "RTL8852BE PCIe 802.11ax Wireless Network Controller",
+                  "vendor": "Realtek Semiconductor Co., Ltd.",
+                  "physid": "0",
+                  "businfo": "pci@0000:02:00.0",
+                  "logicalname": "wlp2s0",
+                  "version": "00",
+                  "serial": "REDACTED",
+                  "width": 64,
+                  "clock": 33000000,
+                  "configuration": {
+                    "broadcast": "yes",
+                    "driver": "rtw89_8852be",
+                    "driverversion": "6.18.46-1-lts",
+                    "firmware": "N/A",
+                    "ip": "192.168.3.100",
+                    "latency": "0",
+                    "link": "yes",
+                    "multicast": "yes",
+                    "wireless": "IEEE 802.11"
+                  },
+                  "capabilities": {
+                    "bus_master": "bus mastering",
+                    "cap_list": "PCI capabilities listing",
+                    "ethernet": true,
+                    "physical": "Physical interface",
+                    "wireless": "Wireless-LAN"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "pci:2",
+              "class": "bridge",
+              "claimed": true,
+              "handle": "PCIBUS:0000:03",
+              "description": "PCI bridge",
+              "product": "Family 17h-19h PCIe GPP Bridge",
+              "vendor": "Advanced Micro Devices, Inc. [AMD]",
+              "physid": "2.4",
+              "businfo": "pci@0000:00:02.4",
+              "version": "00",
+              "width": 32,
+              "clock": 33000000,
+              "configuration": {
+                "driver": "pcieport"
+              },
+              "capabilities": {
+                "pci": true,
+                "normal_decode": true,
+                "bus_master": "bus mastering",
+                "cap_list": "PCI capabilities listing"
+              },
+              "children": [
+                {
+                  "id": "nvme",
+                  "class": "storage",
+                  "claimed": true,
+                  "handle": "PCI:0000:03:00.0",
+                  "description": "NVMe device",
+                  "product": "CT2000P5PSSD8",
+                  "vendor": "Micron/Crucial Technology",
+                  "physid": "0",
+                  "businfo": "pci@0000:03:00.0",
+                  "logicalname": "/dev/nvme0",
+                  "version": "P7CR403",
+                  "serial": "REDACTED",
+                  "width": 64,
+                  "clock": 33000000,
+                  "configuration": {
+                    "driver": "nvme",
+                    "latency": "0",
+                    "nqn": "nqn.2014-08.com.micron:nvme:nvm-subsystem-sn-2323413DC1A1",
+                    "state": "live"
+                  },
+                  "capabilities": {
+                    "nvme": true,
+                    "nvm_express": true,
+                    "bus_master": "bus mastering",
+                    "cap_list": "PCI capabilities listing"
+                  },
+                  "children": [
+                    {
+                      "id": "namespace:0",
+                      "class": "disk",
+                      "claimed": true,
+                      "description": "NVMe disk",
+                      "physid": "0",
+                      "logicalname": "hwmon3"
+                    },
+                    {
+                      "id": "namespace:1",
+                      "class": "disk",
+                      "claimed": true,
+                      "description": "NVMe disk",
+                      "physid": "2",
+                      "logicalname": "/dev/ng0n1"
+                    },
+                    {
+                      "id": "namespace:2",
+                      "class": "disk",
+                      "claimed": true,
+                      "description": "NVMe disk",
+                      "physid": "1",
+                      "businfo": "nvme@0:1",
+                      "logicalname": "/dev/nvme0n1",
+                      "configuration": {
+                        "wwid": "eui.000000000000000100a07523413dc1a1"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "pci:3",
+              "class": "bridge",
+              "claimed": true,
+              "handle": "PCIBUS:0000:04",
+              "description": "PCI bridge",
+              "product": "Family 17h-19h Internal PCIe GPP Bridge",
+              "vendor": "Advanced Micro Devices, Inc. [AMD]",
+              "physid": "8.1",
+              "businfo": "pci@0000:00:08.1",
+              "version": "10",
+              "width": 32,
+              "clock": 33000000,
+              "configuration": {
+                "driver": "pcieport"
+              },
+              "capabilities": {
+                "pci": true,
+                "normal_decode": true,
+                "bus_master": "bus mastering",
+                "cap_list": "PCI capabilities listing"
+              },
+              "children": [
+                {
+                  "id": "display",
+                  "class": "display",
+                  "claimed": true,
+                  "handle": "PCI:0000:04:00.0",
+                  "description": "VGA compatible controller",
+                  "product": "Rembrandt [Radeon 680M]",
+                  "vendor": "Advanced Micro Devices, Inc. [AMD/ATI]",
+                  "physid": "0",
+                  "businfo": "pci@0000:04:00.0",
+                  "logicalname": "/dev/fb0",
+                  "version": "01",
+                  "width": 64,
+                  "clock": 33000000,
+                  "configuration": {
+                    "depth": "32",
+                    "driver": "amdgpu",
+                    "latency": "0",
+                    "resolution": "3840,2160"
+                  },
+                  "capabilities": {
+                    "vga_controller": true,
+                    "bus_master": "bus mastering",
+                    "cap_list": "PCI capabilities listing",
+                    "fb": "framebuffer"
+                  }
+                },
+                {
+                  "id": "multimedia:0",
+                  "class": "multimedia",
+                  "claimed": true,
+                  "handle": "PCI:0000:04:00.1",
+                  "description": "Audio device",
+                  "product": "Radeon High Definition Audio Controller",
+                  "vendor": "Advanced Micro Devices, Inc. [AMD/ATI]",
+                  "physid": "0.1",
+                  "businfo": "pci@0000:04:00.1",
+                  "logicalname": [
+                    "card0",
+                    "/dev/snd/controlC0",
+                    "/dev/snd/hwC0D0",
+                    "/dev/snd/pcmC0D3p",
+                    "/dev/snd/pcmC0D7p"
+                  ],
+                  "version": "00",
+                  "width": 32,
+                  "clock": 33000000,
+                  "configuration": {
+                    "driver": "snd_hda_intel",
+                    "latency": "0"
+                  },
+                  "capabilities": {
+                    "hda_compatible": true,
+                    "bus_master": "bus mastering",
+                    "cap_list": "PCI capabilities listing"
+                  },
+                  "children": [
+                    {
+                      "id": "input:0",
+                      "class": "input",
+                      "claimed": true,
+                      "product": "HD-Audio Generic HDMI/DP,pcm=3",
+                      "physid": "0",
+                      "logicalname": [
+                        "input17",
+                        "/dev/input/event10"
+                      ]
+                    },
+                    {
+                      "id": "input:1",
+                      "class": "input",
+                      "claimed": true,
+                      "product": "HD-Audio Generic HDMI/DP,pcm=7",
+                      "physid": "1",
+                      "logicalname": [
+                        "input18",
+                        "/dev/input/event11"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "generic",
+                  "class": "generic",
+                  "claimed": true,
+                  "handle": "PCI:0000:04:00.2",
+                  "description": "Encryption controller",
+                  "product": "Family 19h PSP/CCP",
+                  "vendor": "Advanced Micro Devices, Inc. [AMD]",
+                  "physid": "0.2",
+                  "businfo": "pci@0000:04:00.2",
+                  "version": "00",
+                  "width": 32,
+                  "clock": 33000000,
+                  "configuration": {
+                    "driver": "ccp",
+                    "latency": "0"
+                  },
+                  "capabilities": {
+                    "bus_master": "bus mastering",
+                    "cap_list": "PCI capabilities listing"
+                  }
+                },
+                {
+                  "id": "usb:0",
+                  "class": "bus",
+                  "claimed": true,
+                  "handle": "PCI:0000:04:00.3",
+                  "description": "USB controller",
+                  "product": "Rembrandt USB4 XHCI controller #3",
+                  "vendor": "Advanced Micro Devices, Inc. [AMD]",
+                  "physid": "0.3",
+                  "businfo": "pci@0000:04:00.3",
+                  "version": "00",
+                  "width": 64,
+                  "clock": 33000000,
+                  "configuration": {
+                    "driver": "xhci_hcd",
+                    "latency": "0"
+                  },
+                  "capabilities": {
+                    "xhci": true,
+                    "bus_master": "bus mastering",
+                    "cap_list": "PCI capabilities listing"
+                  }
+                },
+                {
+                  "id": "usb:1",
+                  "class": "bus",
+                  "claimed": true,
+                  "handle": "PCI:0000:04:00.4",
+                  "description": "USB controller",
+                  "product": "Rembrandt USB4 XHCI controller #4",
+                  "vendor": "Advanced Micro Devices, Inc. [AMD]",
+                  "physid": "0.4",
+                  "businfo": "pci@0000:04:00.4",
+                  "version": "00",
+                  "width": 64,
+                  "clock": 33000000,
+                  "configuration": {
+                    "driver": "xhci_hcd",
+                    "latency": "0"
+                  },
+                  "capabilities": {
+                    "xhci": true,
+                    "bus_master": "bus mastering",
+                    "cap_list": "PCI capabilities listing"
+                  }
+                },
+                {
+                  "id": "multimedia:1",
+                  "class": "multimedia",
+                  "claimed": true,
+                  "handle": "PCI:0000:04:00.5",
+                  "description": "Multimedia controller",
+                  "product": "Audio Coprocessor",
+                  "vendor": "Advanced Micro Devices, Inc. [AMD]",
+                  "physid": "0.5",
+                  "businfo": "pci@0000:04:00.5",
+                  "logicalname": [
+                    "card2",
+                    "/dev/snd/controlC2",
+                    "/dev/snd/pcmC2D0c"
+                  ],
+                  "version": "60",
+                  "width": 32,
+                  "clock": 33000000,
+                  "configuration": {
+                    "driver": "snd_pci_acp6x",
+                    "latency": "0"
+                  },
+                  "capabilities": {
+                    "bus_master": "bus mastering",
+                    "cap_list": "PCI capabilities listing"
+                  }
+                },
+                {
+                  "id": "multimedia:2",
+                  "class": "multimedia",
+                  "claimed": true,
+                  "handle": "PCI:0000:04:00.6",
+                  "description": "Audio device",
+                  "product": "Ryzen HD Audio Controller",
+                  "vendor": "Advanced Micro Devices, Inc. [AMD]",
+                  "physid": "0.6",
+                  "businfo": "pci@0000:04:00.6",
+                  "logicalname": [
+                    "card1",
+                    "/dev/snd/controlC1",
+                    "/dev/snd/hwC1D0",
+                    "/dev/snd/pcmC1D0c",
+                    "/dev/snd/pcmC1D0p"
+                  ],
+                  "version": "00",
+                  "width": 32,
+                  "clock": 33000000,
+                  "configuration": {
+                    "driver": "snd_hda_intel",
+                    "latency": "0"
+                  },
+                  "capabilities": {
+                    "hda_compatible": true,
+                    "bus_master": "bus mastering",
+                    "cap_list": "PCI capabilities listing"
+                  },
+                  "children": [
+                    {
+                      "id": "input:0",
+                      "class": "input",
+                      "claimed": true,
+                      "product": "HD-Audio Generic Mic",
+                      "physid": "0",
+                      "logicalname": [
+                        "input19",
+                        "/dev/input/event12"
+                      ]
+                    },
+                    {
+                      "id": "input:1",
+                      "class": "input",
+                      "claimed": true,
+                      "product": "HD-Audio Generic Headphone",
+                      "physid": "1",
+                      "logicalname": [
+                        "input20",
+                        "/dev/input/event16"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "pci:4",
+              "class": "bridge",
+              "claimed": true,
+              "handle": "PCIBUS:0000:05",
+              "description": "PCI bridge",
+              "product": "Family 17h-19h Internal PCIe GPP Bridge",
+              "vendor": "Advanced Micro Devices, Inc. [AMD]",
+              "physid": "8.3",
+              "businfo": "pci@0000:00:08.3",
+              "version": "10",
+              "width": 32,
+              "clock": 33000000,
+              "configuration": {
+                "driver": "pcieport"
+              },
+              "capabilities": {
+                "pci": true,
+                "normal_decode": true,
+                "bus_master": "bus mastering",
+                "cap_list": "PCI capabilities listing"
+              },
+              "children": [
+                {
+                  "id": "usb:0",
+                  "class": "bus",
+                  "claimed": true,
+                  "handle": "PCI:0000:05:00.0",
+                  "description": "USB controller",
+                  "product": "Rembrandt USB4 XHCI controller #8",
+                  "vendor": "Advanced Micro Devices, Inc. [AMD]",
+                  "physid": "0",
+                  "businfo": "pci@0000:05:00.0",
+                  "version": "00",
+                  "width": 64,
+                  "clock": 33000000,
+                  "configuration": {
+                    "driver": "xhci_hcd",
+                    "latency": "0"
+                  },
+                  "capabilities": {
+                    "xhci": true,
+                    "bus_master": "bus mastering",
+                    "cap_list": "PCI capabilities listing"
+                  }
+                },
+                {
+                  "id": "usb:1",
+                  "class": "bus",
+                  "claimed": true,
+                  "handle": "PCI:0000:05:00.3",
+                  "description": "USB controller",
+                  "product": "Rembrandt USB4 XHCI controller #5",
+                  "vendor": "Advanced Micro Devices, Inc. [AMD]",
+                  "physid": "0.3",
+                  "businfo": "pci@0000:05:00.3",
+                  "version": "00",
+                  "width": 64,
+                  "clock": 33000000,
+                  "configuration": {
+                    "driver": "xhci_hcd",
+                    "latency": "0"
+                  },
+                  "capabilities": {
+                    "xhci": true,
+                    "bus_master": "bus mastering",
+                    "cap_list": "PCI capabilities listing"
+                  }
+                },
+                {
+                  "id": "usb:2",
+                  "class": "bus",
+                  "claimed": true,
+                  "handle": "PCI:0000:05:00.4",
+                  "description": "USB controller",
+                  "product": "Rembrandt USB4 XHCI controller #6",
+                  "vendor": "Advanced Micro Devices, Inc. [AMD]",
+                  "physid": "0.4",
+                  "businfo": "pci@0000:05:00.4",
+                  "version": "00",
+                  "width": 64,
+                  "clock": 33000000,
+                  "configuration": {
+                    "driver": "xhci_hcd",
+                    "latency": "0"
+                  },
+                  "capabilities": {
+                    "xhci": true,
+                    "bus_master": "bus mastering",
+                    "cap_list": "PCI capabilities listing"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "serial",
+              "class": "bus",
+              "claimed": true,
+              "handle": "PCI:0000:00:14.0",
+              "description": "SMBus",
+              "product": "FCH SMBus Controller",
+              "vendor": "Advanced Micro Devices, Inc. [AMD]",
+              "physid": "14",
+              "businfo": "pci@0000:00:14.0",
+              "version": "71",
+              "width": 32,
+              "clock": 66000000,
+              "configuration": {
+                "driver": "piix4_smbus",
+                "latency": "0"
+              }
+            },
+            {
+              "id": "isa",
+              "class": "bridge",
+              "claimed": true,
+              "handle": "PCI:0000:00:14.3",
+              "description": "ISA bridge",
+              "product": "FCH LPC Bridge",
+              "vendor": "Advanced Micro Devices, Inc. [AMD]",
+              "physid": "14.3",
+              "businfo": "pci@0000:00:14.3",
+              "version": "51",
+              "width": 32,
+              "clock": 66000000,
+              "configuration": {
+                "latency": "0"
+              },
+              "capabilities": {
+                "isa": true,
+                "bus_master": "bus mastering"
+              },
+              "children": [
+                {
+                  "id": "pnp00:00",
+                  "class": "system",
+                  "claimed": true,
+                  "product": "Motherboard registers",
+                  "physid": "0",
+                  "configuration": {
+                    "driver": "system"
+                  },
+                  "capabilities": {
+                    "pnp": true
+                  }
+                },
+                {
+                  "id": "pnp00:01",
+                  "class": "system",
+                  "claimed": true,
+                  "product": "AT Real-Time Clock",
+                  "physid": "1",
+                  "configuration": {
+                    "driver": "rtc_cmos"
+                  },
+                  "capabilities": {
+                    "pnp": true
+                  }
+                },
+                {
+                  "id": "pnp00:02",
+                  "class": "generic",
+                  "claimed": true,
+                  "product": "PnP device FUJ7401",
+                  "vendor": "Fujitsu Ltd",
+                  "physid": "2",
+                  "configuration": {
+                    "driver": "i8042 kbd"
+                  },
+                  "capabilities": {
+                    "pnp": true
+                  }
+                },
+                {
+                  "id": "pnp00:03",
+                  "class": "system",
+                  "claimed": true,
+                  "product": "Motherboard registers",
+                  "physid": "3",
+                  "configuration": {
+                    "driver": "system"
+                  },
+                  "capabilities": {
+                    "pnp": true
+                  }
+                },
+                {
+                  "id": "pnp00:04",
+                  "class": "system",
+                  "claimed": true,
+                  "product": "System Board",
+                  "physid": "4",
+                  "configuration": {
+                    "driver": "system"
+                  },
+                  "capabilities": {
+                    "pnp": true
+                  }
+                },
+                {
+                  "id": "input",
+                  "class": "input",
+                  "claimed": true,
+                  "product": "Ideapad extra buttons",
+                  "physid": "5",
+                  "logicalname": [
+                    "input16",
+                    "/dev/input/event15"
+                  ],
+                  "capabilities": {
+                    "platform": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pci:1",
+          "class": "bridge",
+          "claimed": true,
+          "handle": "PCIBUS:0000:00",
+          "description": "Host bridge",
+          "product": "Family 17h-19h PCIe Dummy Host Bridge",
+          "vendor": "Advanced Micro Devices, Inc. [AMD]",
+          "physid": "101",
+          "businfo": "pci@0000:00:01.0",
+          "version": "01",
+          "width": 32,
+          "clock": 33000000
+        },
+        {
+          "id": "pci:2",
+          "class": "bridge",
+          "claimed": true,
+          "handle": "PCIBUS:0000:00",
+          "description": "Host bridge",
+          "product": "Family 17h-19h PCIe Dummy Host Bridge",
+          "vendor": "Advanced Micro Devices, Inc. [AMD]",
+          "physid": "102",
+          "businfo": "pci@0000:00:02.0",
+          "version": "01",
+          "width": 32,
+          "clock": 33000000
+        },
+        {
+          "id": "pci:3",
+          "class": "bridge",
+          "claimed": true,
+          "handle": "PCIBUS:0000:00",
+          "description": "Host bridge",
+          "product": "Family 17h-19h PCIe Dummy Host Bridge",
+          "vendor": "Advanced Micro Devices, Inc. [AMD]",
+          "physid": "103",
+          "businfo": "pci@0000:00:03.0",
+          "version": "01",
+          "width": 32,
+          "clock": 33000000
+        },
+        {
+          "id": "pci:4",
+          "class": "bridge",
+          "claimed": true,
+          "handle": "PCIBUS:0000:00",
+          "description": "Host bridge",
+          "product": "Family 17h-19h PCIe Dummy Host Bridge",
+          "vendor": "Advanced Micro Devices, Inc. [AMD]",
+          "physid": "104",
+          "businfo": "pci@0000:00:04.0",
+          "version": "01",
+          "width": 32,
+          "clock": 33000000
+        },
+        {
+          "id": "pci:5",
+          "class": "bridge",
+          "claimed": true,
+          "handle": "PCIBUS:0000:00",
+          "description": "Host bridge",
+          "product": "Family 17h-19h PCIe Dummy Host Bridge",
+          "vendor": "Advanced Micro Devices, Inc. [AMD]",
+          "physid": "105",
+          "businfo": "pci@0000:00:08.0",
+          "version": "01",
+          "width": 32,
+          "clock": 33000000
+        },
+        {
+          "id": "pci:6",
+          "class": "bridge",
+          "claimed": true,
+          "handle": "PCIBUS:0000:00",
+          "description": "Host bridge",
+          "product": "Rembrandt Data Fabric: Device 18h; Function 0",
+          "vendor": "Advanced Micro Devices, Inc. [AMD]",
+          "physid": "106",
+          "businfo": "pci@0000:00:18.0",
+          "version": "00",
+          "width": 32,
+          "clock": 33000000
+        },
+        {
+          "id": "pci:7",
+          "class": "bridge",
+          "claimed": true,
+          "handle": "PCIBUS:0000:00",
+          "description": "Host bridge",
+          "product": "Rembrandt Data Fabric: Device 18h; Function 1",
+          "vendor": "Advanced Micro Devices, Inc. [AMD]",
+          "physid": "107",
+          "businfo": "pci@0000:00:18.1",
+          "version": "00",
+          "width": 32,
+          "clock": 33000000
+        },
+        {
+          "id": "pci:8",
+          "class": "bridge",
+          "claimed": true,
+          "handle": "PCIBUS:0000:00",
+          "description": "Host bridge",
+          "product": "Rembrandt Data Fabric: Device 18h; Function 2",
+          "vendor": "Advanced Micro Devices, Inc. [AMD]",
+          "physid": "108",
+          "businfo": "pci@0000:00:18.2",
+          "version": "00",
+          "width": 32,
+          "clock": 33000000
+        },
+        {
+          "id": "pci:9",
+          "class": "bridge",
+          "claimed": true,
+          "handle": "PCIBUS:0000:00",
+          "description": "Host bridge",
+          "product": "Rembrandt Data Fabric: Device 18h; Function 3",
+          "vendor": "Advanced Micro Devices, Inc. [AMD]",
+          "physid": "109",
+          "businfo": "pci@0000:00:18.3",
+          "version": "00",
+          "width": 32,
+          "clock": 33000000,
+          "configuration": {
+            "driver": "k10temp"
+          }
+        },
+        {
+          "id": "pci:10",
+          "class": "bridge",
+          "claimed": true,
+          "handle": "PCIBUS:0000:00",
+          "description": "Host bridge",
+          "product": "Rembrandt Data Fabric: Device 18h; Function 4",
+          "vendor": "Advanced Micro Devices, Inc. [AMD]",
+          "physid": "10a",
+          "businfo": "pci@0000:00:18.4",
+          "version": "00",
+          "width": 32,
+          "clock": 33000000
+        },
+        {
+          "id": "pci:11",
+          "class": "bridge",
+          "claimed": true,
+          "handle": "PCIBUS:0000:00",
+          "description": "Host bridge",
+          "product": "Rembrandt Data Fabric: Device 18h; Function 5",
+          "vendor": "Advanced Micro Devices, Inc. [AMD]",
+          "physid": "10b",
+          "businfo": "pci@0000:00:18.5",
+          "version": "00",
+          "width": 32,
+          "clock": 33000000
+        },
+        {
+          "id": "pci:12",
+          "class": "bridge",
+          "claimed": true,
+          "handle": "PCIBUS:0000:00",
+          "description": "Host bridge",
+          "product": "Rembrandt Data Fabric: Device 18h; Function 6",
+          "vendor": "Advanced Micro Devices, Inc. [AMD]",
+          "physid": "10c",
+          "businfo": "pci@0000:00:18.6",
+          "version": "00",
+          "width": 32,
+          "clock": 33000000
+        },
+        {
+          "id": "pci:13",
+          "class": "bridge",
+          "claimed": true,
+          "handle": "PCIBUS:0000:00",
+          "description": "Host bridge",
+          "product": "Rembrandt Data Fabric: Device 18h; Function 7",
+          "vendor": "Advanced Micro Devices, Inc. [AMD]",
+          "physid": "10d",
+          "businfo": "pci@0000:00:18.7",
+          "version": "00",
+          "width": 32,
+          "clock": 33000000
+        }
+      ]
+    },
+    {
+      "id": "input:0",
+      "class": "input",
+      "claimed": true,
+      "product": "Lid Switch",
+      "physid": "1",
+      "logicalname": [
+        "input0",
+        "/dev/input/event0"
+      ],
+      "capabilities": {
+        "platform": true
+      }
+    },
+    {
+      "id": "input:1",
+      "class": "input",
+      "claimed": true,
+      "product": "Power Button",
+      "physid": "2",
+      "logicalname": [
+        "input1",
+        "/dev/input/event1"
+      ],
+      "capabilities": {
+        "platform": true
+      }
+    },
+    {
+      "id": "input:2",
+      "class": "input",
+      "claimed": true,
+      "product": "AT Translated Set 2 keyboard",
+      "physid": "3",
+      "logicalname": [
+        "input2",
+        "/dev/input/event2",
+        "input2::capslock",
+        "input2::numlock",
+        "input2::scrolllock"
+      ],
+      "capabilities": {
+        "i8042": "i8042 PC AT keyboard controller"
+      }
+    },
+    {
+      "id": "input:3",
+      "class": "input",
+      "claimed": true,
+      "product": "GXTP7936:00 27C6:0123",
+      "physid": "4",
+      "logicalname": [
+        "input21",
+        "/dev/input/event17",
+        "/dev/input/mouse2"
+      ],
+      "capabilities": {
+        "i2c": "I\u00b2C bus"
+      }
+    },
+    {
+      "id": "input:4",
+      "class": "input",
+      "claimed": true,
+      "product": "GXTP7936:00 27C6:0123 UNKNOWN",
+      "physid": "5",
+      "logicalname": [
+        "input22",
+        "/dev/input/event18"
+      ],
+      "capabilities": {
+        "i2c": "I\u00b2C bus"
+      }
+    },
+    {
+      "id": "input:5",
+      "class": "input",
+      "claimed": true,
+      "product": "GXTP7936:00 27C6:0123 Keyboard",
+      "physid": "6",
+      "logicalname": [
+        "input23",
+        "/dev/input/event19"
+      ],
+      "capabilities": {
+        "i2c": "I\u00b2C bus"
+      }
+    },
+    {
+      "id": "input:6",
+      "class": "input",
+      "claimed": true,
+      "product": "SYNA2BA6:00 06CB:CEC0 Mouse",
+      "physid": "7",
+      "logicalname": [
+        "input24",
+        "/dev/input/event13",
+        "/dev/input/mouse3"
+      ],
+      "capabilities": {
+        "i2c": "I\u00b2C bus"
+      }
+    },
+    {
+      "id": "input:7",
+      "class": "input",
+      "claimed": true,
+      "product": "SYNA2BA6:00 06CB:CEC0 Touchpad",
+      "physid": "8",
+      "logicalname": [
+        "input25",
+        "/dev/input/event14",
+        "/dev/input/mouse4"
+      ],
+      "capabilities": {
+        "i2c": "I\u00b2C bus"
+      }
+    },
+    {
+      "id": "input:8",
+      "class": "input",
+      "claimed": true,
+      "product": "Video Bus",
+      "physid": "9",
+      "logicalname": [
+        "input3",
+        "/dev/input/event3"
+      ],
+      "capabilities": {
+        "platform": true
+      }
+    },
+    {
+      "id": "input:9",
+      "class": "input",
+      "claimed": true,
+      "product": "Video Bus",
+      "physid": "a",
+      "logicalname": [
+        "input4",
+        "/dev/input/event4"
+      ],
+      "capabilities": {
+        "platform": true
+      }
+    },
+    {
+      "id": "input:10",
+      "class": "input",
+      "claimed": true,
+      "product": "PC Speaker",
+      "physid": "b",
+      "logicalname": [
+        "input9",
+        "/dev/input/event9"
+      ],
+      "capabilities": {
+        "isa": "ISA bus"
+      }
+    }
+  ]
+}

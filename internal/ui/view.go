@@ -47,10 +47,13 @@ func (m Model) View() string {
 		return lipgloss.JoinVertical(lipgloss.Left, m.helpView(), m.statusBar())
 	}
 
+	// One column of gutter between the panes so their borders do not fuse.
 	tw := m.treeWidth()
-	dw := maxInt(20, m.width-tw)
+	dw := maxInt(20, m.width-tw-1)
+	gutter := strings.Repeat(" \n", m.paneHeight()+borderLines-1) + " "
 	body := lipgloss.JoinHorizontal(lipgloss.Top,
 		m.pane("Devices", m.treeLines(tw-4), tw, m.focus == paneTree),
+		gutter,
 		m.pane(m.detailTitle(), m.detailLines(dw-4), dw, m.focus == paneDetail),
 	)
 	return lipgloss.JoinVertical(lipgloss.Left, body, m.statusBar())

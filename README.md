@@ -50,6 +50,7 @@ Homebrew (Linux):
 
 ```sh
 brew tap susamn/tap
+brew trust susamn/tap        # Homebrew requires explicit trust for third-party casks
 brew install --cask lshwtui
 ```
 

@@ -76,3 +76,5 @@ release:
   github:
     owner: susamn
     name: lshwtui
+  replace_existing_artifacts: true
+  mode: replace

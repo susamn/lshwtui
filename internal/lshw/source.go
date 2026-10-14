@@ -88,7 +88,6 @@ func PrivilegedCapture(outPath string) (*exec.Cmd, Source, error) {
 	if err != nil {
 		return nil, src, fmt.Errorf("creating capture file: %w", err)
 	}
-	defer f.Close()
 
 	cmd := exec.Command(esc, "lshw", "-json")
 	cmd.Stdout = f

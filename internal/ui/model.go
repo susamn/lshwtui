@@ -114,6 +114,9 @@ func (m Model) rootLoadCmd() tea.Cmd {
 		return flash(err.Error(), true)
 	}
 	return tea.ExecProcess(cmd, func(runErr error) tea.Msg {
+		if f, ok := cmd.Stdout.(*os.File); ok {
+			_ = f.Close()
+		}
 		defer os.Remove(tmp)
 		if runErr != nil {
 			return loadedMsg{err: fmt.Errorf("privileged capture failed: %w", runErr)}

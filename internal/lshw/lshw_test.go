@@ -127,6 +127,26 @@ func TestSourceDescribe(t *testing.T) {
 	}
 }
 
+func TestPrivilegedCaptureStdoutIsOpen(t *testing.T) {
+	tmp := filepath.Join(t.TempDir(), "capture.json")
+	cmd, src, err := PrivilegedCapture(tmp)
+	if err != nil {
+		t.Skipf("cannot create privileged capture: %v", err)
+	}
+	f, ok := cmd.Stdout.(*os.File)
+	if !ok {
+		t.Fatalf("cmd.Stdout is %T, want *os.File", cmd.Stdout)
+	}
+	defer f.Close()
+
+	if _, err := f.WriteString("test"); err != nil {
+		t.Fatalf("writing to cmd.Stdout failed: %v (file was likely closed prematurely)", err)
+	}
+	if !src.Privileged {
+		t.Error("expected Privileged source")
+	}
+}
+
 func TestParseRealCapture(t *testing.T) {
 	data, err := os.ReadFile("../../testdata/sample.json")
 	if err != nil {

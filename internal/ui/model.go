@@ -132,3 +132,17 @@ func (m Model) rootLoadCmd() tea.Cmd {
 func flash(text string, isErr bool) tea.Cmd {
 	return func() tea.Msg { return flashMsg{text: text, isErr: isErr} }
 }
+
+func (m *Model) syncTreeTop() {
+	if m.tree == nil {
+		m.treeTop = 0
+		return
+	}
+	h := maxInt(1, m.paneHeight()-1)
+	m.treeTop = scrollTo(m.tree.Cursor(), m.treeTop, h)
+}
+
+func (m Model) detailMaxTop() int {
+	h := maxInt(1, m.paneHeight()-1)
+	return maxInt(0, m.detailLineCount()-h)
+}

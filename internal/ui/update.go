@@ -14,32 +14,32 @@ import (
 
 // Update satisfies tea.Model.
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+	var cmd tea.Cmd
 	switch msg := msg.(type) {
 	case tea.WindowSizeMsg:
 		m.width, m.height = msg.Width, msg.Height
-		return m, nil
-
 	case flashMsg:
 		m.status, m.statusIsErr = msg.text, msg.isErr
-		return m, nil
-
 	case loadedMsg:
-		return m.applyLoad(msg), nil
-
+		m = m.applyLoad(msg)
 	case tea.KeyMsg:
+		var next tea.Model
 		switch m.mode {
 		case modeHelp:
 			m.mode = modeNormal
-			return m, nil
 		case modeSearch:
-			return m.updateSearchPrompt(msg)
+			next, cmd = m.updateSearchPrompt(msg)
+			m = next.(Model)
 		case modeSave:
-			return m.updateSavePrompt(msg)
+			next, cmd = m.updateSavePrompt(msg)
+			m = next.(Model)
 		default:
-			return m.updateNormal(msg)
+			next, cmd = m.updateNormal(msg)
+			m = next.(Model)
 		}
 	}
-	return m, nil
+	m.syncTreeTop()
+	return m, cmd
 }
 
 func (m Model) applyLoad(msg loadedMsg) Model {
@@ -185,12 +185,12 @@ func (m Model) moveDetail(msg tea.KeyMsg) Model {
 		m.detailTop = 0
 		return m
 	case "G", "end":
-		m.detailTop = maxInt(0, m.detailLineCount()-m.paneHeight())
+		m.detailTop = m.detailMaxTop()
 		return m
 	default:
 		return m
 	}
-	m.detailTop = clamp(m.detailTop+step, 0, maxInt(0, m.detailLineCount()-m.paneHeight()))
+	m.detailTop = clamp(m.detailTop+step, 0, m.detailMaxTop())
 	return m
 }
 

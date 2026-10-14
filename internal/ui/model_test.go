@@ -120,6 +120,29 @@ func TestCollapseAllWhenCursorOnDeepChild(t *testing.T) {
 	}
 }
 
+func TestTreeViewportStability(t *testing.T) {
+	m := loaded(t)
+	// Set small window so scrolling occurs
+	sized, _ := m.Update(tea.WindowSizeMsg{Width: 80, Height: 10})
+	m = sized.(Model)
+	h := m.paneHeight() - 1 // title line
+
+	// Move cursor past h
+	for i := 0; i <= h+2; i++ {
+		m, _ = drive(t, m, "j")
+	}
+	topAfterDown := m.treeTop
+	if topAfterDown <= 0 {
+		t.Fatalf("expected treeTop > 0 after scrolling past height, got %d", topAfterDown)
+	}
+
+	// Move cursor up by one: treeTop should NOT change because cursor is still within viewport
+	m, _ = drive(t, m, "k")
+	if m.treeTop != topAfterDown {
+		t.Errorf("treeTop shifted from %d to %d on single k, expected viewport to stay stable", topAfterDown, m.treeTop)
+	}
+}
+
 func TestSearchFindsAndClears(t *testing.T) {
 	m := loaded(t)
 	m, _ = drive(t, m, "/", "c", "p", "u")

@@ -88,7 +88,7 @@ func (m Model) pane(title string, lines []string, width int, active bool) string
 
 func (m Model) treeLines(width int) []string {
 	rows := m.tree.Rows()
-	h := m.paneHeight() - 1 // the pane's title consumes one line
+	h := maxInt(1, m.paneHeight()-1) // the pane's title consumes one line
 	top := scrollTo(m.tree.Cursor(), m.treeTop, h)
 
 	out := make([]string, 0, h)
@@ -159,7 +159,7 @@ func (m Model) detailLines(width int) []string {
 		}
 	}
 
-	top := clamp(m.detailTop, 0, maxInt(0, len(lines)-h))
+	top := clamp(m.detailTop, 0, m.detailMaxTop())
 	if top >= len(lines) {
 		return nil
 	}

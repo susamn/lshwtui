@@ -2,9 +2,11 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"os"
+	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
 
@@ -20,6 +22,7 @@ func main() {
 		file     = flag.String("file", "", "open a saved lshw JSON snapshot instead of the live system")
 		noGlyphs = flag.Bool("no-glyphs", false, "use ASCII icons instead of Nerd Font glyphs")
 		showVer  = flag.Bool("version", false, "print the version and exit")
+		check    = flag.Bool("check", false, "verify hardware capture and JSON parsing, then exit")
 	)
 	flag.StringVar(file, "f", "", "shorthand for -file")
 	flag.Usage = usage
@@ -27,6 +30,30 @@ func main() {
 
 	if *showVer {
 		fmt.Println("lshwtui", version)
+		return
+	}
+
+	if *check {
+		var data []byte
+		var src lshw.Source
+		var err error
+		if *file != "" {
+			data, src, err = lshw.LoadFile(*file)
+		} else {
+			ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+			defer cancel()
+			data, src, err = lshw.Capture(ctx)
+		}
+		if err != nil {
+			fail(err)
+		}
+		root, err := lshw.Parse(data)
+		if err != nil {
+			fail(err)
+		}
+		count := 0
+		root.Walk(func(*lshw.Node) { count++ })
+		fmt.Printf("OK: %s (%d devices detected)\n", src.Describe(), count)
 		return
 	}
 

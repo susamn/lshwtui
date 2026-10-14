@@ -77,6 +77,7 @@ make install        # into ~/.local/bin (override with PREFIX=)
 lshwtui                    # inspect the live hardware tree
 lshwtui -f snapshot.json   # open a saved snapshot instead of live hardware
 lshwtui --no-glyphs        # plain-ASCII tree, no Nerd Font glyphs
+lshwtui --check            # verify hardware capture and parsing, then exit
 lshwtui --version          # print version and exit
 ```
 
@@ -84,6 +85,7 @@ lshwtui --version          # print version and exit
 |---|---|
 | `-f`, `--file <path>` | Open a snapshot JSON file instead of capturing live hardware |
 | `--no-glyphs` | Use plain ASCII markers instead of Nerd Font glyphs |
+| `--check` | Verify hardware capture and JSON parsing without launching UI, then exit |
 | `--version` | Print version and exit |
 
 ## Keybindings

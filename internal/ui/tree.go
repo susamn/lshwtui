@@ -166,7 +166,19 @@ func (t *Tree) SetAllExpanded(open bool) {
 	t.expanded[t.Root] = true
 	t.rebuild()
 	if sel != nil {
-		t.Reveal(sel)
+		if open {
+			t.Reveal(sel)
+		} else {
+			curr := sel
+			for curr != nil && t.IndexOf(curr) == -1 {
+				curr = curr.Parent
+			}
+			if idx := t.IndexOf(curr); idx != -1 {
+				t.cursor = idx
+			} else {
+				t.clampCursor()
+			}
+		}
 	}
 }
 
@@ -175,7 +187,19 @@ func (t *Tree) setExpanded(n *lshw.Node, open bool) {
 	t.expanded[n] = open
 	t.rebuild()
 	if sel != nil {
-		t.Reveal(sel)
+		if open {
+			t.Reveal(sel)
+		} else {
+			curr := sel
+			for curr != nil && t.IndexOf(curr) == -1 {
+				curr = curr.Parent
+			}
+			if idx := t.IndexOf(curr); idx != -1 {
+				t.cursor = idx
+			} else {
+				t.clampCursor()
+			}
+		}
 	}
 }
 

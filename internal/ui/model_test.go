@@ -106,6 +106,20 @@ func TestCollapseAllThenExpandAll(t *testing.T) {
 	}
 }
 
+func TestCollapseAllWhenCursorOnDeepChild(t *testing.T) {
+	m := loaded(t)
+	// Move deep into the tree.
+	m, _ = drive(t, m, "j", "j", "j", "j", "j")
+	if m.tree.Cursor() == 0 {
+		t.Fatal("cursor should not be at root")
+	}
+	m, _ = drive(t, m, "C")
+	want := 1 + len(m.tree.Root.Children)
+	if m.tree.Len() != want {
+		t.Errorf("collapse all from deep child left %d rows, want %d", m.tree.Len(), want)
+	}
+}
+
 func TestSearchFindsAndClears(t *testing.T) {
 	m := loaded(t)
 	m, _ = drive(t, m, "/", "c", "p", "u")

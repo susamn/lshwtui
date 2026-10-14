@@ -30,10 +30,9 @@ func copyToClipboard(text string) error {
 		}
 		cmd := exec.Command(tool[0], tool[1:]...)
 		cmd.Stdin = strings.NewReader(text)
-		if err := cmd.Run(); err != nil {
-			return err
+		if err := cmd.Run(); err == nil {
+			return nil
 		}
-		return nil
 	}
 
 	if !termenv.NewOutput(os.Stdout).EnvNoColor() {

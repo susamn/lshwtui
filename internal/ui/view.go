@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"strconv"
 	"strings"
 
 	"github.com/charmbracelet/lipgloss"
@@ -19,7 +20,15 @@ func (m Model) paneHeight() int {
 }
 
 func (m Model) treeWidth() int {
-	return clamp(m.width*2/5, minTreeWidth, maxTreeWidth)
+	if m.width <= 0 {
+		return minTreeWidth
+	}
+	maxW := maxInt(6, m.width-8)
+	w := clamp(m.width*2/5, minTreeWidth, maxTreeWidth)
+	if w > maxW {
+		w = maxW
+	}
+	return maxInt(6, w)
 }
 
 func (m Model) detailLineCount() int {
@@ -49,7 +58,7 @@ func (m Model) View() string {
 
 	// One column of gutter between the panes so their borders do not fuse.
 	tw := m.treeWidth()
-	dw := maxInt(20, m.width-tw-1)
+	dw := maxInt(6, m.width-tw-1)
 	gutter := strings.Repeat(" \n", m.paneHeight()+borderLines-1) + " "
 	body := lipgloss.JoinHorizontal(lipgloss.Top,
 		m.pane("Devices", m.treeLines(tw-4), tw, m.focus == paneTree),
@@ -81,9 +90,9 @@ func (m Model) pane(title string, lines []string, width int, active bool) string
 	}
 	inner := lipgloss.JoinVertical(lipgloss.Left,
 		titleStyle.Render(title),
-		strings.Join(lines[:h-1], "\n"),
+		strings.Join(lines[:maxInt(0, h-1)], "\n"),
 	)
-	return border.Width(width - 2).Height(h).Render(inner)
+	return border.Width(maxInt(0, width-2)).Height(h).Render(inner)
 }
 
 func (m Model) treeLines(width int) []string {
@@ -118,7 +127,7 @@ func (m Model) treeRow(r Row, selected bool, width int) string {
 		if r.Node == m.search.Current() {
 			return m.theme.TreeCurMatch.Width(width).Render(plain)
 		}
-		return m.theme.TreeMatch.Render(plain)
+		return m.theme.TreeMatch.Width(width).Render(plain)
 	}
 
 	// Unselected rows keep their per-segment colour: dim guides, a
@@ -168,10 +177,12 @@ func (m Model) detailLines(width int) []string {
 
 func (m Model) statusBar() string {
 	if m.mode == modeSearch {
-		return m.theme.Prompt.Width(m.width).Render("/" + m.input + "█" + m.searchCounter())
+		prompt := "/" + m.input + "█" + m.searchCounter()
+		return m.theme.Prompt.Width(m.width).Render(truncate(prompt, m.width))
 	}
 	if m.mode == modeSave {
-		return m.theme.Prompt.Width(m.width).Render("save snapshot to: " + m.input + "█")
+		prompt := "save snapshot to: " + m.input + "█"
+		return m.theme.Prompt.Width(m.width).Render(truncate(prompt, m.width))
 	}
 
 	left := m.status
@@ -188,6 +199,11 @@ func (m Model) statusBar() string {
 	}
 	right += m.theme.StatusKey.Render(" ? ") + m.theme.Status.Render("help")
 
+	avail := m.width - lipgloss.Width(right) - 3
+	if avail < 0 {
+		avail = 0
+	}
+	left = truncate(left, avail)
 	gap := maxInt(1, m.width-lipgloss.Width(left)-lipgloss.Width(right)-2)
 	return m.theme.Status.Width(m.width).Render(" " + style.Render(left) + strings.Repeat(" ", gap) + right)
 }
@@ -200,7 +216,7 @@ func (m Model) searchCounter() string {
 		return "   no matches"
 	}
 	return m.theme.Status.Render(
-		"   " + itoa(m.search.Ordinal()) + "/" + itoa(m.search.Count()) + " matches")
+		"   " + strconv.Itoa(m.search.Ordinal()) + "/" + strconv.Itoa(m.search.Count()) + " matches")
 }
 
 // scrollTo returns a viewport offset that keeps cursor visible within height
@@ -233,18 +249,4 @@ func truncate(s string, width int) string {
 		}
 	}
 	return ""
-}
-
-func itoa(v int) string {
-	if v == 0 {
-		return "0"
-	}
-	var b [20]byte
-	i := len(b)
-	for v > 0 {
-		i--
-		b[i] = byte('0' + v%10)
-		v /= 10
-	}
-	return string(b[i:])
 }

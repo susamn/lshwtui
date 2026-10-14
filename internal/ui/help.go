@@ -74,5 +74,5 @@ func (m Model) helpView() string {
 		m.theme.PaneTitleActive.Render("Keybindings"),
 		strings.Join(lines[:maxInt(0, h-1)], "\n"),
 	)
-	return m.theme.BorderActive.Width(m.width - 2).Height(h).Render(inner)
+	return m.theme.BorderActive.Width(maxInt(0, m.width-2)).Height(h).Render(inner)
 }

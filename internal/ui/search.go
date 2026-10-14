@@ -64,11 +64,11 @@ func (s *Search) Run(root *lshw.Node, query string, near *lshw.Node) {
 	s.matches = nil
 	s.set = map[*lshw.Node]bool{}
 	s.idx = 0
-	if query == "" || root == nil {
+	needle := strings.ToLower(strings.TrimSpace(query))
+	if needle == "" || root == nil {
 		return
 	}
 
-	needle := strings.ToLower(query)
 	passedNear := near == nil
 	landed := false
 	root.Walk(func(n *lshw.Node) {

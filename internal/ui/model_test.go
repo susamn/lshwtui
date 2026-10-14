@@ -34,7 +34,7 @@ func drive(t *testing.T, m Model, keys ...string) (Model, string) {
 var keyTypes = map[string]tea.KeyType{
 	"enter": tea.KeyEnter, "esc": tea.KeyEsc, "tab": tea.KeyTab,
 	"backspace": tea.KeyBackspace, "up": tea.KeyUp, "down": tea.KeyDown,
-	"ctrl+d": tea.KeyCtrlD, "ctrl+u": tea.KeyCtrlU,
+	"ctrl+d": tea.KeyCtrlD, "ctrl+u": tea.KeyCtrlU, "ctrl+w": tea.KeyCtrlW,
 }
 
 func loaded(t *testing.T) Model {
@@ -155,6 +155,29 @@ func TestSearchFindsAndClears(t *testing.T) {
 	m, _ = drive(t, m, "enter", "esc")
 	if m.search.Active() {
 		t.Error("esc did not clear the search")
+	}
+}
+
+func TestSearchPromptEditing(t *testing.T) {
+	m := loaded(t)
+	// Multi-byte UTF-8 rune handling on backspace
+	m, _ = drive(t, m, "/", "c", "p", "u", " ", "世", "界")
+	if m.input != "cpu 世界" {
+		t.Fatalf("expected input 'cpu 世界', got %q", m.input)
+	}
+	m, _ = drive(t, m, "backspace")
+	if m.input != "cpu 世" {
+		t.Fatalf("expected input 'cpu 世' after backspacing rune, got %q", m.input)
+	}
+	// ctrl+w deletes previous word
+	m, _ = drive(t, m, "ctrl+w")
+	if m.input != "cpu " {
+		t.Fatalf("expected input 'cpu ' after ctrl+w, got %q", m.input)
+	}
+	// ctrl+u clears entire line
+	m, _ = drive(t, m, "ctrl+u")
+	if m.input != "" {
+		t.Fatalf("expected empty input after ctrl+u, got %q", m.input)
 	}
 }
 

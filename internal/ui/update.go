@@ -210,11 +210,13 @@ func (m Model) updateSearchPrompt(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		}
 		return m, nil
 	case "backspace":
-		if m.input != "" {
-			m.input = m.input[:len(m.input)-1]
-		}
+		m.input = popRune(m.input)
+	case "ctrl+w":
+		m.input = popWord(m.input)
 	case "ctrl+u":
 		m.input = ""
+	case " ":
+		m.input += " "
 	default:
 		if r := msg.Runes; len(r) > 0 {
 			m.input += string(r)
@@ -246,11 +248,13 @@ func (m Model) updateSavePrompt(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		}
 		return m, flash("saved snapshot to "+path, false)
 	case "backspace":
-		if m.input != "" {
-			m.input = m.input[:len(m.input)-1]
-		}
+		m.input = popRune(m.input)
+	case "ctrl+w":
+		m.input = popWord(m.input)
 	case "ctrl+u":
 		m.input = ""
+	case " ":
+		m.input += " "
 	default:
 		if r := msg.Runes; len(r) > 0 {
 			m.input += string(r)
@@ -293,6 +297,23 @@ func expandHome(path string) string {
 		return path
 	}
 	return filepath.Join(home, path[2:])
+}
+
+func popRune(s string) string {
+	r := []rune(s)
+	if len(r) == 0 {
+		return ""
+	}
+	return string(r[:len(r)-1])
+}
+
+func popWord(s string) string {
+	s = strings.TrimRight(s, " ")
+	i := strings.LastIndex(s, " ")
+	if i == -1 {
+		return ""
+	}
+	return s[:i+1]
 }
 
 func clamp(v, lo, hi int) int { return maxInt(lo, minInt(v, hi)) }

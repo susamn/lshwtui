@@ -217,6 +217,15 @@ func TestHelpOverlay(t *testing.T) {
 	}
 }
 
+func TestSnapshotReloadAsRootIgnored(t *testing.T) {
+	m := loaded(t)
+	m.source = lshw.Source{Origin: "snap.json", Snapshot: true}
+	m, _ = drive(t, m, "R")
+	if !strings.Contains(m.status, "cannot reload snapshot as root") {
+		t.Errorf("expected status to warn about snapshot escalation, got %q", m.status)
+	}
+}
+
 func TestNarrowTerminalDoesNotPanic(t *testing.T) {
 	m := loaded(t)
 	for _, size := range []tea.WindowSizeMsg{{Width: 20, Height: 5}, {Width: 35, Height: 10}, {Width: 200, Height: 60}} {

@@ -2,8 +2,10 @@
 package lshw
 
 import (
+	"encoding/json"
 	"fmt"
 	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -30,11 +32,23 @@ func (n *Node) Str(key string) string {
 
 // Num returns a numeric field, or 0 and false when absent or non-numeric.
 func (n *Node) Num(key string) (int64, bool) {
-	f, ok := n.Raw[key].(float64)
-	if !ok {
-		return 0, false
+	switch v := n.Raw[key].(type) {
+	case float64:
+		return int64(v), true
+	case int64:
+		return v, true
+	case int:
+		return int64(v), true
+	case json.Number:
+		i, err := v.Int64()
+		return i, err == nil
+	case string:
+		i, err := strconv.ParseInt(strings.TrimSpace(v), 10, 64)
+		if err == nil {
+			return i, true
+		}
 	}
-	return int64(f), true
+	return 0, false
 }
 
 // Map returns a nested string map field such as configuration or capabilities.

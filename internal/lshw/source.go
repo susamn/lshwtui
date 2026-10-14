@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"time"
 )
 
@@ -98,6 +99,7 @@ func PrivilegedCapture(outPath string) (*exec.Cmd, Source, error) {
 
 // LoadFile reads a previously saved snapshot.
 func LoadFile(path string) ([]byte, Source, error) {
+	path = expandHome(path)
 	src := Source{Origin: path, Snapshot: true, Privileged: true}
 	data, err := os.ReadFile(path)
 	if err != nil {
@@ -111,6 +113,7 @@ func LoadFile(path string) ([]byte, Source, error) {
 
 // SaveFile writes the current raw JSON to path, creating parent directories.
 func SaveFile(path string, data []byte) error {
+	path = expandHome(path)
 	if dir := filepath.Dir(path); dir != "." {
 		if err := os.MkdirAll(dir, 0o755); err != nil {
 			return fmt.Errorf("creating %s: %w", dir, err)
@@ -125,8 +128,23 @@ func SaveFile(path string, data []byte) error {
 func firstLine(b []byte) string {
 	for i, c := range b {
 		if c == '\n' {
-			return string(b[:i])
+			return strings.TrimRight(string(b[:i]), "\r")
 		}
 	}
-	return string(b)
+	return strings.TrimRight(string(b), "\r")
+}
+
+func expandHome(path string) string {
+	if path == "~" {
+		if home, err := os.UserHomeDir(); err == nil {
+			return home
+		}
+		return path
+	}
+	if strings.HasPrefix(path, "~/") {
+		if home, err := os.UserHomeDir(); err == nil {
+			return filepath.Join(home, path[2:])
+		}
+	}
+	return path
 }

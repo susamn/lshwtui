@@ -65,7 +65,7 @@ func TestParseRejectsGarbage(t *testing.T) {
 
 func TestAccessorsTolerateMissingAndOddTypes(t *testing.T) {
 	root, err := Parse([]byte(`{"id":"x","class":"disk","logicalname":["/dev/sda","/dev/sdb"],
-		"configuration":{"driver":"nvme","ncq":true},"size":1024}`))
+		"configuration":{"driver":"nvme","ncq":true},"size":1024,"capacity":"2048"}`))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -79,10 +79,19 @@ func TestAccessorsTolerateMissingAndOddTypes(t *testing.T) {
 		t.Errorf("missing key returned %q", got)
 	}
 	if _, ok := root.Num("class"); ok {
-		t.Error("Num on a string field reported success")
+		t.Error("Num on a non-numeric string field reported success")
+	}
+	if val, ok := root.Num("capacity"); !ok || val != 2048 {
+		t.Errorf("Num on numeric string field failed, got %d, %v", val, ok)
 	}
 	if got := root.Str("size"); got != "1024" {
 		t.Errorf("numeric field rendered as %q, want an integer without a decimal point", got)
+	}
+}
+
+func TestFirstLineStripsCR(t *testing.T) {
+	if got := firstLine([]byte("first line\r\nsecond line")); got != "first line" {
+		t.Errorf("firstLine = %q, want 'first line'", got)
 	}
 }
 

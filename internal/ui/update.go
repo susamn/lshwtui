@@ -88,6 +88,10 @@ func (m Model) updateNormal(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 		m.status, m.statusIsErr = "reloading…", false
 		return m, m.loadCmd()
 	case "R":
+		if m.source.Snapshot {
+			m.status, m.statusIsErr = "cannot reload snapshot as root (not a live session)", false
+			return m, nil
+		}
 		if lshw.IsRoot() {
 			m.status, m.statusIsErr = "already running as root", false
 			return m, nil
@@ -289,6 +293,12 @@ func defaultSnapshotPath() string {
 }
 
 func expandHome(path string) string {
+	if path == "~" {
+		if home, err := os.UserHomeDir(); err == nil {
+			return home
+		}
+		return path
+	}
 	if !strings.HasPrefix(path, "~/") {
 		return path
 	}

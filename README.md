@@ -1,5 +1,10 @@
 # lshwtui
 
+[![Distro Compatibility](https://github.com/susamn/lshwtui/actions/workflows/distro-test.yml/badge.svg)](https://github.com/susamn/lshwtui/actions/workflows/distro-test.yml)
+[![Release](https://github.com/susamn/lshwtui/actions/workflows/release.yml/badge.svg)](https://github.com/susamn/lshwtui/actions/workflows/release.yml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/susamn/lshwtui)](https://goreportcard.com/report/github.com/susamn/lshwtui)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 A lazygit-style terminal UI for `lshw`. `lshw -json` dumps a wall of nested
 text; `lshwtui` turns it into a navigable, collapsible tree with vim-style
 keys, search, and a detail pane — so you can actually find the device you're

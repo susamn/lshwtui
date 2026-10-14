@@ -14,7 +14,7 @@ GO := env -u GOROOT go
 
 .PHONY: build
 build: ## Build the binary into ./$(BINARY)
-	$(GO) build -trimpath -ldflags '$(LDFLAGS)' -o $(BINARY) .
+	$(GO) build -trimpath -buildvcs=false -ldflags '$(LDFLAGS)' -o $(BINARY) .
 
 .PHONY: run
 run: build ## Build and run against the live hardware tree

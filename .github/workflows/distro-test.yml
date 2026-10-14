@@ -128,9 +128,9 @@ jobs:
             image: archlinux:latest
             setup: "pacman -Sy --noconfirm git go make lshw"
 
-          - name: Alpine Linux 3.21
-            image: alpine:3.21
-            setup: "apk add --no-cache git go make build-base lshw --repository=https://dl-cdn.alpinelinux.org/alpine/v3.21/community"
+          - name: Alpine Linux Edge (Musl)
+            image: alpine:edge
+            setup: "apk add --no-cache git go make build-base lshw"
 
     steps:
       - uses: actions/checkout@v4
@@ -145,6 +145,7 @@ jobs:
               set -e
               echo '=== Installing toolchain & dependencies ==='
               ${{ matrix.distro.setup }}
+              git config --global --add safe.directory /workspace || true
               echo '=== Go toolchain version ==='
               go version
               echo '=== Running make check ==='

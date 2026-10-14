@@ -1,0 +1,157 @@
+name: Distro Compatibility
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build & Test (Host)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+
+      - name: Verify Code Formatting
+        run: |
+          out=$(gofmt -l .)
+          if [ -n "$out" ]; then echo "unformatted files:"; echo "$out"; exit 1; fi
+
+      - name: Run go vet
+        run: env -u GOROOT go vet ./...
+
+      - name: Run Test Suite
+        run: env -u GOROOT go test -v -race ./...
+
+      - name: Build Static Binary
+        run: |
+          CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X main.version=${{ github.sha }}" -o lshwtui .
+
+      - name: Sanity Check Static Binary
+        run: |
+          ./lshwtui --version
+          ./lshwtui --check -f testdata/sample.json
+
+      - name: Upload Binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: lshwtui-linux-amd64
+          path: lshwtui
+          retention-days: 1
+
+  distro-runtime-test:
+    name: Runtime · ${{ matrix.distro.name }}
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        distro:
+          - name: Ubuntu 24.04 (Noble)
+            image: ubuntu:24.04
+            setup: "apt-get update -qq && apt-get install -y -qq lshw"
+
+          - name: Ubuntu 22.04 (Jammy)
+            image: ubuntu:22.04
+            setup: "apt-get update -qq && apt-get install -y -qq lshw"
+
+          - name: Debian 12 (Bookworm)
+            image: debian:bookworm-slim
+            setup: "apt-get update -qq && apt-get install -y -qq lshw"
+
+          - name: Fedora 41
+            image: fedora:41
+            setup: "dnf install -y -q lshw"
+
+          - name: Arch Linux
+            image: archlinux:latest
+            setup: "pacman -Sy --noconfirm lshw"
+
+          - name: openSUSE Tumbleweed
+            image: opensuse/tumbleweed:latest
+            setup: "zypper --non-interactive install -y lshw"
+
+          - name: Alpine Linux 3.21 (Musl)
+            image: alpine:3.21
+            setup: "apk add --no-cache lshw --repository=https://dl-cdn.alpinelinux.org/alpine/v3.21/community"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Pre-built Binary
+        uses: actions/download-artifact@v4
+        with:
+          name: lshwtui-linux-amd64
+          path: .
+
+      - name: Ensure Executable Permissions
+        run: chmod +x ./lshwtui
+
+      - name: Test lshw integration in ${{ matrix.distro.name }}
+        run: |
+          docker run --rm \
+            -v "$PWD:/workspace" \
+            -w /workspace \
+            ${{ matrix.distro.image }} \
+            sh -c "
+              set -e
+              echo '=== Installing lshw ==='
+              ${{ matrix.distro.setup }}
+              echo '=== lshw version ==='
+              lshw -version || true
+              echo '=== lshwtui version ==='
+              ./lshwtui --version
+              echo '=== Testing snapshot JSON parsing ==='
+              ./lshwtui --check -f testdata/sample.json
+              echo '=== Testing live hardware capture & parsing ==='
+              ./lshwtui --check
+            "
+
+  distro-source-build:
+    name: Source Build · ${{ matrix.distro.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        distro:
+          - name: Fedora 41
+            image: fedora:41
+            setup: "dnf install -y -q git golang make lshw"
+
+          - name: Arch Linux
+            image: archlinux:latest
+            setup: "pacman -Sy --noconfirm git go make lshw"
+
+          - name: Alpine Linux Edge (Musl)
+            image: alpine:edge
+            setup: "apk add --no-cache git go make build-base lshw"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and test from source in ${{ matrix.distro.name }}
+        run: |
+          docker run --rm \
+            -v "$PWD:/workspace" \
+            -w /workspace \
+            ${{ matrix.distro.image }} \
+            sh -c "
+              set -e
+              echo '=== Installing toolchain & dependencies ==='
+              ${{ matrix.distro.setup }}
+              git config --global --add safe.directory /workspace || true
+              echo '=== Go toolchain version ==='
+              go version
+              echo '=== Running make check ==='
+              make check
+              echo '=== Building binary ==='
+              make build
+              echo '=== Testing live hardware capture ==='
+              ./lshwtui --check
+            "

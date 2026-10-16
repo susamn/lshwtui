@@ -5,26 +5,7 @@ text; `lshwtui` turns it into a navigable, collapsible tree with vim-style
 keys, search, and a detail pane — so you can actually find the device you're
 looking for instead of scrolling through hundreds of lines.
 
-```
-┌─ hardware ─────────────────────┐┌─ details ─────────────────────────┐
-│ v system                       ││ id          : cpu:0               │
-│ ├─v bus                        ││ class       : processor           │
-│ │ ├─v pci                      ││ product     : AMD Ryzen 7 5800X   │
-│ │ │ ├─> display                ││ vendor      : Advanced Micro Dev. │
-│ │ │ ├─v network                ││ physid      : 1                   │
-│ │ │ │  eth0                    ││ businfo     : cpu@0               │
-│ │ │ └─> storage                ││ clock       : 3800MHz             │
-│ │ ├─v cpu                      ││                                    │
-│ │ │  * cpu:0                   ││ configuration                     │
-│ │ │    cpu:1                   ││   cores      : 8                  │
-│ │ └─> memory                   ││   threads    : 16                 │
-│ └─> power                      ││   microcode  : 0xa20120a          │
-│                                 ││                                    │
-│                                 ││ capabilities                      │
-│                                 ││   fpu, vmx, x86-64                │
-└─────────────────────────────────┘└────────────────────────────────────┘
- live (partial, run as root for full detail)        /search  ?help  q quit
-```
+![lshwtui showing a collapsible hardware tree and device details](docs/images/lshwtui.png)
 
 ## Features
 

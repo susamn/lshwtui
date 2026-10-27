@@ -1,6 +1,7 @@
 package lshw
 
 import (
+	"encoding/json"
 	"os"
 	"path/filepath"
 	"testing"
@@ -89,6 +90,24 @@ func TestAccessorsTolerateMissingAndOddTypes(t *testing.T) {
 	}
 }
 
+func TestNumAcceptsSnapshotNumericTypes(t *testing.T) {
+	n := &Node{Raw: map[string]any{
+		"int": int(1024), "int64": int64(2048),
+		"jsonNumber": json.Number("4096"), "string": " 8192 ",
+		"invalid": "not a number",
+	}}
+	for key, want := range map[string]int64{
+		"int": 1024, "int64": 2048, "jsonNumber": 4096, "string": 8192,
+	} {
+		if got, ok := n.Num(key); !ok || got != want {
+			t.Errorf("Num(%q) = %d, %v; want %d, true", key, got, ok, want)
+		}
+	}
+	if _, ok := n.Num("invalid"); ok {
+		t.Error("Num accepted a non-numeric string")
+	}
+}
+
 func TestFirstLineStripsCR(t *testing.T) {
 	if got := firstLine([]byte("first line\r\nsecond line")); got != "first line" {
 		t.Errorf("firstLine = %q, want 'first line'", got)
@@ -111,6 +130,27 @@ func TestSnapshotRoundTrip(t *testing.T) {
 	}
 	if !src.Snapshot || src.Describe() != "snapshot snap.json" {
 		t.Errorf("source = %+v", src)
+	}
+}
+
+func TestSnapshotPathsExpandHome(t *testing.T) {
+	home := t.TempDir()
+	t.Setenv("HOME", home)
+	data := []byte(`{"id":"snap"}`)
+	path := "~/nested/snap.json"
+	if err := SaveFile(path, data); err != nil {
+		t.Fatal(err)
+	}
+	got, src, err := LoadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if string(got) != string(data) {
+		t.Errorf("loaded %q, want %q", got, data)
+	}
+	want := filepath.Join(home, "nested", "snap.json")
+	if src.Origin != want {
+		t.Errorf("origin = %q, want %q", src.Origin, want)
 	}
 }
 

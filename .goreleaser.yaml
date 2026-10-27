@@ -35,6 +35,23 @@ archives:
       - README.md
       - LICENSE
 
+nfpms:
+  - id: linux-packages
+    ids:
+      - lshwtui
+    package_name: lshwtui
+    file_name_template: "{{ .PackageName }}_{{ .Version }}_{{ .Arch }}"
+    formats:
+      - deb
+      - rpm
+    bindir: /usr/bin
+    homepage: "https://github.com/susamn/lshwtui"
+    description: "Vim-navigable terminal UI for lshw"
+    license: MIT
+    maintainer: "susamn <susamn@users.noreply.github.com>"
+    dependencies:
+      - lshw
+
 checksum:
   name_template: checksums.txt
 

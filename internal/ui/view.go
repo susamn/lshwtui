@@ -56,6 +56,19 @@ func (m Model) View() string {
 		return lipgloss.JoinVertical(lipgloss.Left, m.helpView(), m.statusBar())
 	}
 
+	// Two bordered panes need at least 13 columns (6 + gutter + 6).
+	// Below that, show the focused pane instead of wrapping both panes.
+	if m.width < 13 {
+		if m.focus == paneDetail {
+			return lipgloss.JoinVertical(lipgloss.Left,
+				m.pane(m.detailTitle(), m.detailLines(maxInt(0, m.width-4)), m.width, true),
+				m.statusBar())
+		}
+		return lipgloss.JoinVertical(lipgloss.Left,
+			m.pane("Devices", m.treeLines(maxInt(0, m.width-4)), m.width, true),
+			m.statusBar())
+	}
+
 	// One column of gutter between the panes so their borders do not fuse.
 	tw := m.treeWidth()
 	dw := maxInt(6, m.width-tw-1)
@@ -198,6 +211,9 @@ func (m Model) statusBar() string {
 		right = m.theme.Status.Render(right)
 	}
 	right += m.theme.StatusKey.Render(" ? ") + m.theme.Status.Render("help")
+	if lipgloss.Width(right)+3 > m.width {
+		return m.theme.Status.Width(m.width).Render(truncate(" "+left, m.width))
+	}
 
 	avail := m.width - lipgloss.Width(right) - 3
 	if avail < 0 {

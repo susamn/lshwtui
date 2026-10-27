@@ -46,3 +46,16 @@ jobs:
           # A PAT with contents:write on susamn/homebrew-tap. The default
           # GITHUB_TOKEN cannot push to another repository.
           HOMEBREW_TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+      - name: Verify DEB and RPM release assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          assets=$(gh release view "$GITHUB_REF_NAME" --json assets --jq '.assets[].name')
+          for arch in amd64 arm64; do
+            for format in deb rpm; do
+              if ! grep -Eq "^lshwtui_.*_${arch}\\.${format}$" <<< "$assets"; then
+                echo "Missing ${arch} ${format} package in release $GITHUB_REF_NAME" >&2
+                exit 1
+              fi
+            done
+          done

@@ -40,6 +40,23 @@ brew trust susamn/tap        # Homebrew requires explicit trust for third-party 
 brew install --cask lshwtui
 ```
 
+DEB / RPM (Linux): download the package for your architecture from the
+[latest GitHub release](https://github.com/susamn/lshwtui/releases/latest).
+Packages install the binary to `/usr/bin` and depend on `lshw`.
+
+```sh
+VERSION=0.1.1  # set to the release version (without its v prefix)
+# Debian / Ubuntu (amd64 or arm64: use the matching release asset)
+sudo apt install ./lshwtui_${VERSION}_amd64.deb
+# Fedora / RHEL-compatible (x86_64 or aarch64: use the matching release asset)
+sudo dnf install ./lshwtui_${VERSION}_amd64.rpm
+```
+
+Replace `amd64` with `arm64` for ARM machines. To uninstall, run `sudo apt remove lshwtui` or
+`sudo dnf remove lshwtui` respectively. Package installation does not run
+`lshw` as root: launch normally for partial data, then press `R` if you want
+to re-capture with elevated privileges.
+
 Go:
 
 ```sh

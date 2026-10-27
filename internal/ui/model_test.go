@@ -228,16 +228,20 @@ func TestSnapshotReloadAsRootIgnored(t *testing.T) {
 
 func TestNarrowTerminalDoesNotPanic(t *testing.T) {
 	m := loaded(t)
-	for _, size := range []tea.WindowSizeMsg{{Width: 20, Height: 5}, {Width: 35, Height: 10}, {Width: 200, Height: 60}} {
+	for _, size := range []tea.WindowSizeMsg{{Width: 10, Height: 5}, {Width: 12, Height: 5}, {Width: 16, Height: 5}, {Width: 20, Height: 5}, {Width: 35, Height: 10}, {Width: 200, Height: 60}} {
 		next, _ := m.Update(size)
 		out := next.(Model).View()
 		if out == "" {
 			t.Errorf("empty frame at %dx%d", size.Width, size.Height)
 		}
-		// Verify lines do not exceed terminal width
-		for i, line := range strings.Split(out, "\n") {
-			if w := lipgloss.Width(line); w > size.Width {
-				t.Errorf("at %dx%d: line %d is %d cells wide, exceeds %d", size.Width, size.Height, i, w, size.Width)
+		// Verify lines do not exceed terminal width in either pane.
+		detail := next.(Model)
+		detail.focus = paneDetail
+		for _, frame := range []string{out, detail.View()} {
+			for i, line := range strings.Split(frame, "\n") {
+				if w := lipgloss.Width(line); w > size.Width {
+					t.Errorf("at %dx%d: line %d is %d cells wide, exceeds %d", size.Width, size.Height, i, w, size.Width)
+				}
 			}
 		}
 	}
